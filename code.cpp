@@ -225,7 +225,7 @@ public: //Public makes sure that it can be accessed even outside of the class, u
 };
 
 int main() {
-    cout << MIN_NR + MIN_LS + MAX_NR + MAX_LS;  // dummy statement to avoid compiler warning
+    cout << MIN_NR + MIN_LS + MAX_NR + MAX_LS << endl;  // dummy statement to avoid compiler warning
     DoublyLinkedList * DLL = new DoublyLinkedList; //New doubly linked list
     //Adding values
     DLL->push_back(6); 
