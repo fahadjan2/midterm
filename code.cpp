@@ -3,25 +3,26 @@
 #include <iostream>
 using namespace std;
 
-const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
+const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20; //Constant values, unchangable, usually used for things like size that you want to be constant throughout the code
 
-class DoublyLinkedList {
-private:
-    struct Node {
-        int data;
-        Node* prev;
-        Node* next;
-        Node(int val, Node* p = nullptr, Node* n = nullptr) {
-            data = val; 
-            prev = p;
-            next = n;
+class DoublyLinkedList { //creates a class, something with members and methods that you can reuse. Doubly linked lists make it easier to navigate between data connecting them like nodes
+private: //Makes sure you can't access these members outside the class itself
+    struct Node { //Creates a struct of Node, with members except without private/public. Node is a doubly linked list with a previous and a next pointer, pointing to another node 
+        int data; //Integer
+        Node* prev; //Previous pointer, points to a node behind
+        Node* next; //Next pointer, points to the node linked after it
+        Node(int val, Node* p = nullptr, Node* n = nullptr) { //Constructor that initializes the three variables above
+            data = val; //Sets the data integer with a value when called
+            prev = p; //Nullptr for previous value
+            next = n; //Nullptr for next
         }
     };
 
-    Node* head;
-    Node* tail;
+    Node* head; //Head pointer, holds the first value in the linked list
+    Node* tail; //Tail pointer, holds the last value in the linked list, both make it easier to access the fronts and ends
+    
 
-public:
+public: //
     DoublyLinkedList() { head = nullptr; tail = nullptr; }
 
     void insert_after(int value, int position) {
@@ -210,7 +211,7 @@ public:
             cout << "List is empty." << endl;
             return;
         }
-        int count = 1;
+        int count = 0;
         while (current) {
             if (count % 2 == 0) {
                 cout << current->data << " ";
