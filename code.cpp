@@ -117,108 +117,108 @@ public: //Public makes sure that it can be accessed even outside of the class, u
         delete temp; //Deletes temp node
     }
 
-    void push_back(int v) { //
-        Node* newNode = new Node(v);
-        if (!tail)
+    void push_back(int v) { //Method that adds a value to the end of the list
+        Node* newNode = new Node(v); //Initializes a new node with the value
+        if (!tail) //If list is empty, the new node is set as the head and tail
             head = tail = newNode;
-        else {
-            tail->next = newNode;
-            newNode->prev = tail;
-            tail = newNode;
+        else { //If list is not empty
+            tail->next = newNode; //current tail points to the new node
+            newNode->prev = tail; //New node points to current tail
+            tail = newNode; //Tail now becomes new node
         }
     }
     
-    void push_front(int v) {
-        Node* newNode = new Node(v);
-        if (!head)
+    void push_front(int v) { //Method that adds a value to the front of the code
+        Node* newNode = new Node(v); //Initializes new node with value
+        if (!head) //If list is empty, new node becomes head and tail
             head = tail = newNode;
-        else {
-            newNode->next = head;
-            head->prev = newNode;
-            head = newNode;
+        else { 
+            newNode->next = head; //Node points to the current head 
+            head->prev = newNode; //Head prev points to the new node
+            head = newNode; //Head now becomes the new node
         }
     }
     
-    void pop_front() {
+    void pop_front() { //Method that deletes the head value/or node in the front of the list
 
-        if (!head) {
+        if (!head) { //Empty
             cout << "List is empty." << endl;
             return;
         }
 
-        Node * temp = head;
+        Node * temp = head; //Pointer starts from the head
 
-        if (head->next) {
-            head = head->next;
-            head->prev = nullptr;
+        if (head->next) { //If more than 1 node exists
+            head = head->next; //Head is now the node that comes after
+            head->prev = nullptr; //Previous points to nothing since it's the first value
         }
-        else
-            head = tail = nullptr;
+        else //If only the head exists, both tail and head point to nothing
+            head = tail = nullptr; 
         delete temp;
     }
 
-    void pop_back() {
-        if (!tail) {
+    void pop_back() { //Method that deletes the tail/node that comes last
+        if (!tail) { //Empty
             cout << "List is empty." << endl;
             return;
         }
-        Node * temp = tail;
+        Node * temp = tail; //Starts from tail
 
-        if (tail->prev) {
-            tail = tail->prev;
-            tail->next = nullptr;
+        if (tail->prev) { //If more than 1 node
+            tail = tail->prev; //Tail is now the value that comes before
+            tail->next = nullptr; //Next points to nothing since it's last value
         }
-        else
+        else //If only node is tail, both head and tail point to nothing
             head = tail = nullptr;
-        delete temp;
+        delete temp; 
     }
 
-    ~DoublyLinkedList() {
-        while (head) {
-            Node* temp = head;
-            head = head->next;
-            delete temp;
+    ~DoublyLinkedList() { //Deconstructor, deletes all the list
+        while (head) { //Makes sure head exists
+            Node* temp = head; //Points to the node in the head currently
+            head = head->next; //Makes the new head the node that comes after
+            delete temp; //Deletes the current node
         }
     }
-    void print() {
-        Node* current = head;
-        if (!current) {
+    void print() { //Method that prints the entire list
+        Node* current = head; //Starts from head
+        if (!current) { //Empty
             cout << "List is empty." << endl;
             return;
         }
-        while (current) {
+        while (current) { //For each node, will print the current value and then move on to the next, until empty
             cout << current->data << " ";
             current = current->next;
         }
         cout << endl;
     }
 
-    void print_reverse() {
-        Node* current = tail;
-        if (!current) { 
+    void print_reverse() { //Method that prints the list beginning from the tail
+        Node* current = tail; //Starts from tail
+        if (!current) { //Empty
             cout << "List is empty." << endl;
             return;
         }
-        while (current) {
+        while (current) { //For each node, will print the current value and then move on to the previous one, until empty
             cout << current->data << " ";
             current = current->prev;
         }
         cout << endl;
     }
 
-    void every_other_element() {
-        Node* current = head;
-        if (!current) {
+    void every_other_element() { //Method that will print every other element, skipping even positions
+        Node* current = head; //Starts from the head
+        if (!current) { //Empty
             cout << "List is empty." << endl;
             return;
         }
-        int count = 0;
+        int count = 0; //Checker for whether we are on an odd position or even (Value starts from 0, so technically first position is the count 0, second position is count 1, etc.)
         while (current) {
-            if (count % 2 == 0) {
-                cout << current->data << " ";
+            if (count % 2 == 0) { //If the position is odd
+                cout << current->data << " "; //Prints
             }
-            current = current->next;
-            count++;
+            current = current->next; //Keeps going on to the next value
+            count++; //Adds one to the count
         }
         cout << endl;
     }
@@ -226,12 +226,13 @@ public: //Public makes sure that it can be accessed even outside of the class, u
 
 int main() {
     cout << MIN_NR + MIN_LS + MAX_NR + MAX_LS;  // dummy statement to avoid compiler warning
-    cout << "\ntest3" << endl;
-    DoublyLinkedList * DLL = new DoublyLinkedList;
-    DLL->push_back(6);
+    DoublyLinkedList * DLL = new DoublyLinkedList; //New doubly linked list
+    //Adding values
+    DLL->push_back(6); 
     DLL->push_back(7);
     DLL->push_back(2);
     DLL->push_back(5);
+    //Testing
     DLL->every_other_element();
 
     return 0;
