@@ -57,67 +57,67 @@ public: //Public makes sure that it can be accessed even outside of the class, u
         temp->next = newNode; //Changes the current position's next to the new node, successfully connecting them
     }
 
-    void delete_val(int value) {
-        if (!head) return;
+    void delete_val(int value) { //Method that deletes a specific value
+        if (!head) return; //Returns if the list is empty
 
-        Node* temp = head;
+        Node* temp = head; //Starts from the head using a temp pointer
         
-        while (temp && temp->data != value)
+        while (temp && temp->data != value) //If both temp exists and the value of temp isnt the value we want to delete, will keep going forward from the next pointer
             temp = temp->next;
 
-        if (!temp) return; 
+        if (!temp) return;  //If there is null then it returns
 
-        if (temp->prev)
+        if (temp->prev) //Since we're deleting the value of temp, we want to connect the previous node's next to the node after temp
             temp->prev->next = temp->next;
-        else
+        else //If there is nothing behind the value we want to delete, it means temp is the head. we just set the head to be the node after temp
             head = temp->next; 
 
-        if (temp->next)
-            temp->next->prev = temp->prev;
-        else
+        if (temp->next) //If temp has a next(makes sure we don't edit null things)
+            temp->next->prev = temp->prev; //Sets the next node's prev pointer to point to the node before temp
+        else //Sets it as the tail if it's the last node(ie temp->next points to nothing)
             tail = temp->prev; 
 
-        delete temp;
+        delete temp; //Once the next and prev of the nodes next to temp is connected, deletes the temp node (the node with the value we want)
     }
 
-    void delete_pos(int pos) {
-        if (!head) {
+    void delete_pos(int pos) { //Method that deletes the position we input
+        if (!head) { //List is empty
             cout << "List is empty." << endl;
             return;
         }
     
-        if (pos == 1) {
+        if (pos == 1) { //If the position is the head, we just call the other method that deletes the head
             pop_front();
             return;
         }
     
-        Node* temp = head;
+        Node* temp = head; //Temp ptr that starts from the head
     
-        for (int i = 1; i < pos; i++){
-            if (!temp) {
+        for (int i = 1; i < pos; i++){ //Goes through the entire list, until i is the position we're looking for
+            if (!temp) { //If temp is null, aka doesn't exist
                 cout << "Position doesn't exist." << endl;
                 return;
             }
-            else
+            else //Keeps going through the list
                 temp = temp->next;
         }
-        if (!temp) {
+        if (!temp) { //Doesn't exist
             cout << "Position doesn't exist." << endl;
             return;
         }
     
-        if (!temp->next) {
+        if (!temp->next) { //If it's the last value, calls method that deletes tail
             pop_back();
             return;
         }
     
-        Node* tempPrev = temp->prev;
-        tempPrev->next = temp->next;
-        temp->next->prev = tempPrev;
-        delete temp;
+        Node* tempPrev = temp->prev; //The node preceding the current position
+        tempPrev->next = temp->next; //Previous node now points to node after current position
+        temp->next->prev = tempPrev; //Node after current points to previous node, connecting the two together so we can delete temp
+        delete temp; //Deletes temp node
     }
 
-    void push_back(int v) {
+    void push_back(int v) { //
         Node* newNode = new Node(v);
         if (!tail)
             head = tail = newNode;
