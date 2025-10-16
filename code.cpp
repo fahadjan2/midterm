@@ -210,14 +210,12 @@ public:
             cout << "List is empty." << endl;
             return;
         }
-        int count = 0;
+        int count = 1;
         while (current) {
-            cout << count % 2;
             if (count % 2 == 0) {
-                
                 cout << current->data << " ";
-                current = current->next;
             }
+            current = current->next;
             count++;
         }
         cout << endl;
@@ -226,8 +224,12 @@ public:
 
 int main() {
     cout << MIN_NR + MIN_LS + MAX_NR + MAX_LS;  // dummy statement to avoid compiler warning
-    cout << "test1" << endl;
+    cout << "\ntest3" << endl;
     DoublyLinkedList * DLL = new DoublyLinkedList;
+    DLL->push_back(6);
+    DLL->push_back(7);
+    DLL->push_back(2);
+    DLL->push_back(5);
     DLL->every_other_element();
 
     return 0;
