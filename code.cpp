@@ -22,38 +22,39 @@ private: //Makes sure you can't access these members outside the class itself
     Node* tail; //Tail pointer, holds the last value in the linked list, both make it easier to access the fronts and ends
     
 
-public: //
-    DoublyLinkedList() { head = nullptr; tail = nullptr; }
+public: //Public makes sure that it can be accessed even outside of the class, usually where methods are stored
+    DoublyLinkedList() { head = nullptr; tail = nullptr; } //Constructor when doublylinkedlist is initialized, sets head and tail as nullptr, pointing to nothing
 
-    void insert_after(int value, int position) {
-        if (position < 0) {
-            cout << "Position must be >= 0." << endl;
+    void insert_after(int value, int position) { //Method that takes in two parameters, a value int and a position int, then inserts a new value after the position
+        if (position < 0) { //If the position is less than 0, will return since negatives don't exist as a position
+            cout << "Position must be >= 0." << endl; 
             return;
         }
 
-        Node* newNode = new Node(value);
-        if (!head) {
+        Node* newNode = new Node(value); //Initializes a new node, the prev and next pointer being null, while value being set as the data member
+        if (!head) { //If there is no node that currently exists in the doublylinkedlist, will set both the tail and head as the new node, then returns since there is no need to add it anywhere
             head = tail = newNode;
             return;
         }
 
-        Node* temp = head;
-        for (int i = 0; i < position && temp; ++i)
+        Node* temp = head; //Stores a temporary variable of node, to start from the head
+        for (int i = 0; i < position && temp; ++i) //For each position in the linked list that starts from 0, it will keep going through the next pointer until it meets the position it wants. Makes sure temp exists 
             temp = temp->next;
 
-        if (!temp) {
+        if (!temp) { //If there is no temp, it returns and deletes the new node. Means that the position is more than the amount in the list
             cout << "Position exceeds list size. Node not inserted.\n";
             delete newNode;
             return;
         }
 
-        newNode->next = temp->next;
-        newNode->prev = temp;
-        if (temp->next)
+        //Once successfully found position, will try to set the next and previous values in a way to connect the new node in between
+        newNode->next = temp->next; //The new node's next pointer now points to what the current position points to
+        newNode->prev = temp; //The new node's previous pointer just points to the current position, since we want to insert it after
+        if (temp->next) //Sets the node that was originally after the current position's, to point backwards to the new node
             temp->next->prev = newNode;
-        else
+        else //If a next doesnt exist, then the last value / tail just points to the new node
             tail = newNode;
-        temp->next = newNode;
+        temp->next = newNode; //Changes the current position's next to the new node, successfully connecting them
     }
 
     void delete_val(int value) {
